@@ -14,10 +14,6 @@ body{
 }
 
 #game-board {
- --grid-size: 4;
- --cell-size: 20vmin;
- --cell-gap: 2vmin;
- --cell-radius: 1vmin;
   display: grid;
   grid-template-columns: repeat(var(--grid-size), var(--cell-size));
   grid-template-rows: repeat(var(--grid-size), var(--cell-size));
@@ -34,10 +30,6 @@ body{
 }
 
 .tile{
-  --x:0;
-  --y:0;
-  --background-lightness: 80%;
-  --text-lightness: 20%;
   position: absolute;
   display: flex;
   justify-content: center;
