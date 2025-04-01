@@ -32,3 +32,30 @@ body{
   background-color: #AAA;
   border-radius: var(--cell-radius);
 }
+
+.tile{
+  --x:0;
+  --y:0;
+  --background-lightness: 80%;
+  --text-lightness: 20%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: var(--cell-radius);
+  top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  background-color: hsl(200, 50%, var(--background-lightness));
+  color: hsl(200, 25%, var(--text-lightness));
+  animation: show 200ms ease-in-out;
+   transition: 100ms ease-in-out;
+}
+
+@keyframes show {
+  0% {
+    opacity: .5;
+    transform: scale(0);
+  }
+}
