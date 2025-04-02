@@ -11,15 +11,18 @@ export default class Grid {
     elementoGrid.style.setProperty("--cell-size", `${CELL_SIZE}vmin`);
     elementoGrid.style.setProperty("--cell-gap", `${CELL_GAP}vmin`);
     elementoGrid.style.setProperty("--cell-radius", `${CELL_RADIUS}vmin`);
-    this.#cells = createCellElements(elementoGrid).map(
-      (elementoCell, index) => {
-        return new Cell(
-          elementoCell,
-          index % GRID_SIZE,
-          Math.floor(index / GRID_SIZE)
-        );
-      }
-    );
+    this.#cells = createCellElements(elementoGrid).map((elementoCell, index) => {
+        return new Cell(elementoCell, index % GRID_SIZE, Math.floor(index / GRID_SIZE));
+      });
+
+  }
+  
+     get cellsByColumn() {
+    return this.#cells.reduce((cellGrid, cell) => {
+      cellGrid[cell.x] = cellGrid[cell.x] || []
+      cellGrid[cell.x][cell.y] = cell
+      return cellGrid
+    }, [])
   }
 
   get #emptyCells() {
@@ -33,16 +36,26 @@ export default class Grid {
 }
 
 class Cell {
-  #elementoCell;
-  #x;
-  #y;
-  #tile;
+  #elementoCell
+  #x
+  #y
+  #tile
+  #mergeTile
 
   constructor(elementoCell, x, y) {
     this.#elementoCell = elementoCell;
     this.#x = x;
     this.#y = y;
   }
+  
+  get x() {
+    return this.#x;
+  }
+
+  get y() {
+    return this.#y;
+  } 
+
   get tile() {
     return this.#tile;
   }
@@ -52,6 +65,24 @@ class Cell {
     if (value == null) return;
     this.#tile.x= this.#x;
     this.#tile.y= this.#y;
+  }
+
+   get mergeTile() {
+    return this.#mergeTile
+  }
+
+  set mergeTile(value) {
+    this.#mergeTile = value
+    if (value == null) return
+    this.#mergeTile.x = this.#x
+    this.#mergeTile.y = this.#y
+  }
+
+  podeAceitar(tile) {
+    return (
+      this.tile == null ||
+      (this.mergeTile == null && this.tile.value === tile.value)
+    )
   }
 }
 
