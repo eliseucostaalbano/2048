@@ -37,6 +37,18 @@ function moverCima() {
   moverTiles(grid.cellsByColumn)
 }
 
+function moverBaixo() {
+  moverTiles(grid.cellsByColumn.map(column => [...column].reverse()))
+}
+
+function moverEsquerda() {
+  moverTiles(grid.cellsByRow)
+}
+
+function moverDireita() {
+  moverTiles(grid.cellsByRow.map(row => [...row].reverse()))
+}
+
 function moverTiles(cells) {
     cells.flatMap(group => {
       for (let i = 1; i < group.length; i++) {
