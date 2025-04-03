@@ -11,6 +11,10 @@ constructor(containerTile, value= Math.random() > 0.5 ? 2 : 4) {
     this.value = value
     }
 
+get value() {
+    return this.#value
+    }
+
  set value(v) {
     this.#value = v
     this.#elementoTile.textContent = v
@@ -28,5 +32,15 @@ set x(value) {
 set y(value) {
     this.#y = value
     this.#elementoTile.style.setProperty("--y", value)
+    }
+
+ remove() {
+    this.#elementoTile.remove()
+    }
+
+  waitForTransition(animation = false) {
+    return new Promise(resolve => {
+        this.#elementoTile.addEventListener(  animation ? "animationend" : "transitionend",  resolve, { once: true })
+    })
     }
 }
